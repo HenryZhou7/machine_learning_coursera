@@ -92,17 +92,17 @@ for i = 1:m,
    
    % Use forward propagation to find the features at each layer
    a_1 = X(i,:)';
-   z_2 = Theta1 * a_1;
+   z_2 = a_1 * Theta1';
    a_2 = [1; sigmoid(z_2)];
-   z_3 = Theta2 * a_2;
+   z_3 = a_2 * Theta2';
    a_3 = sigmoid(z_3);
    
    y_vec = zeros(num_labels, 1);
    y_vec(y(i)) = 1;
    
    % calculate little delta
-   delta_3 = (a_3 - y_vec);
-   delta_2 = Theta2' * delta_3 .* sigmoidGradient([1; z_2]);
+   delta_3 = a_3 - y_vec;
+   delta_2 = Theta2' * delta_3 .* sigmoidGradient(z_2);
    
    % calculate delta_sums
    delta_sum1 = delta_sum1 + delta_2(2:end) * a_1';
@@ -110,8 +110,7 @@ for i = 1:m,
     
 end
 
-Theta1_grad = delta_sum1 / m;
-Theta2_grad = delta_sum2 / m;
+
 
 
 % Part 3: Implement regularization with the cost function and gradients.
@@ -122,8 +121,20 @@ Theta2_grad = delta_sum2 / m;
 %               and Theta2_grad from Part 2.
 %
 
-Theta1_grad(:, 2:end) = Theta1_grad(:, 2:end) + lambda / m * Theta1(:, 2:end);
-Theta2_grad(:, 2:end) = Theta2_grad(:, 2:end) + lambda / m * Theta2(:, 2:end);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
