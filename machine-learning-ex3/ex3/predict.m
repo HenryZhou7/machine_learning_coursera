@@ -21,10 +21,24 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% First append a column of ones to X matrix
+X = [ones(m)(:, 1), X];
 
 
+% Layer 2 computation
+a_1 = X';
+a_2 = sigmoid(Theta1 * a_1);
 
 
+% Layer 3 computation
+% Append a row of ones to a_2
+a_2 = [ones(size(a_2, 2))(1,:); a_2];
+a_3 = sigmoid(Theta2 * a_2);
+
+
+% a_3 matrix has each final predict in columns
+[dummy, result] = max(a_3, [], 1);
+p = result'
 
 
 
