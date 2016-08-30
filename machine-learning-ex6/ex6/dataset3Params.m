@@ -23,6 +23,33 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+possible = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+error = realmax();
+
+size = size(possible, 2);
+
+for i = 1:size,
+
+  for j = 1:size,
+    C_test = possible(i);
+    sigma_test = possible(j);
+    
+    model = svmTrain(X, y, C_test, @(x1, x2) gaussianKernel(x1, x2, sigma_test));
+    predictions = svmPredict(model, Xval);
+    new_error = mean(double(predictions ~= yval));
+    
+    if new_error < error,
+      error = new_error;
+      C = C_test;
+      sigma = sigma_test;
+    end
+    
+  
+  end
+  
+
+
+end
 
 
 
