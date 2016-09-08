@@ -27,7 +27,22 @@ centroids = zeros(K, n);
 %
 
 
+for i = 1:K
+    
+    count = 0;
+    feature = zeros(1, n);
+    
+    for j = 1:m
+        if idx(j) == i
+            feature = feature + X(j,:);
+            count = count + 1;
+        end
+       
+    end
+    
+    centroids(i,:) = feature ./ count;
 
+end
 
 
 
