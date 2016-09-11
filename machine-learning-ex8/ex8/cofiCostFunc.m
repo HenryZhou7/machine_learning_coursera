@@ -41,14 +41,19 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+projected = X * Theta';
+
+temp = (projected - Y) .* R;
+
+J = 1 / 2 * sum(sum(temp  .^ 2)) + lambda / 2 * sum(sum(Theta .^ 2)) + lambda / 2 * sum(sum(X .^ 2));
 
 
+% Finding the gradient
 
 
+X_grad = temp * Theta + lambda * X;      % Vectorization is amazing!
 
-
-
-
+Theta_grad = temp' * X + lambda * Theta;
 
 
 

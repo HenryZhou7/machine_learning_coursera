@@ -22,11 +22,18 @@ sigma2 = zeros(n, 1);
 %
 
 
+X_temp = X';
+
+mu = sum(X)' ./ m;
 
 
+for i = 1:n
+    sigma2(i) = 1 / m * sum((X(:, i) - mu(i) * ones(n - 1, 1)) .^ 2);
+
+end
 
 
-
+mu = mu';
 
 
 

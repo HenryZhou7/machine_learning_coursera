@@ -23,11 +23,40 @@ for epsilon = min(pval):stepsize:max(pval)
     % Note: You can use predictions = (pval < epsilon) to get a binary vector
     %       of 0's and 1's of the outlier predictions
 
+    
+    predictions = (pval < epsilon);
+    
+    % Find the value
+    tp = 0;
+    fp = 0;
+    fn = 0;
+    tn = 0;
+    
+    % See if it is tp, fp, fn or tn
+    
+    for i = 1:size(yval, 1)
+        if yval(i, 1) == 1 && predictions(i, 1) == 1
+            tp = tp + 1;
+        end
+        if yval(i, 1) == 1 && predictions(i, 1) == 0
+            fn = fn + 1;
+        end
+        if yval(i, 1) == 0 && predictions(i, 1) == 1
+            fp = fp + 1;
+        end
+        if yval(i, 1) == 0 && predictions(i, 1) == 0
+            tn = tn + 1;
+        end
+    end
+    
+    
+    % calculate prec and reca and corresponding F1 score
 
+    prec = tp / (tp + fp);
+    rec = tp / (tp + fn);
+    F1 = 2 * prec * rec / (prec + rec);
 
-
-
-
+    % compare
 
 
 
